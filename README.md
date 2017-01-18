@@ -6,7 +6,7 @@ A test project with React.
 Create Project
 ---
 ```angular2html
-git clone git@github.com:ildafon/react-video-player.git
+git clone https://github.com/ildafon/react-video-player.git
 ```
 
 
