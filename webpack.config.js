@@ -1,4 +1,6 @@
 var path = require('path');
+var OfflinePlugin = require('offline-plugin');
+
 
 var config = {
     context: path.join(__dirname, 'src'),
@@ -29,6 +31,9 @@ var config = {
             path.join(__dirname, 'node_modules'),
        ],
     },
+    plugins: [
+      new OfflinePlugin()
+    ],
 };
 
 module.exports = config;

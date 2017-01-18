@@ -1,3 +1,1 @@
-/**
- * Created by ildargr on 1/17/17.
- */
+require('offline-plugin/runtime').install();
