@@ -10,7 +10,7 @@ export default (props) => {
         <Router history={browserHistory}>
             <Route path="/" component={Template}>
                 <IndexRoute component={PlayList}/>
-                <Route path="/:id" component={VideoPlayer}/>
+                <Route path="video" component={VideoPlayer}/>
             </Route>
         </Router>
 

@@ -1,6 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router';
 
-
+const localPlayList = [
+    {id:0, name: 'Jellyfish 3', src: 'http://jell.yfish.us/media/jellyfish-3-mbps-hd-h264.mkv'},
+    {id:1, name: 'Jellyfish 5', src: 'http://jell.yfish.us/media/jellyfish-5-mbps-hd-h264.mkv'},
+    {id:2, name: 'Jellyfish 10', src: 'http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv'}
+]
 
 class PlayList extends React.Component {
     constructor(props){
@@ -9,7 +14,24 @@ class PlayList extends React.Component {
 
     render(){
         return (
-            <div>Playlist</div>
+            <div>
+                <p>Playlist</p>
+                <div>
+                    <ul>
+                    {localPlayList.map(video => (
+                        <li key={video.id}><Link
+                         to={{
+                             pathname: `/video`,
+                             query: { src: video.src}
+                         }}
+                        >
+                            {video.name}
+                        </Link></li>
+                    ))}
+                    </ul>
+                </div>
+            </div>
+
         )
     }
 }
