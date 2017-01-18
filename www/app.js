@@ -65,7 +65,7 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	__webpack_require__(253).install();
+	__webpack_require__(254).install();
 
 
 	(0, _reactDom.render)(_react2.default.createElement(_App2.default, null), document.getElementById('mount'));
@@ -26825,11 +26825,17 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactDom = __webpack_require__(33);
+
 	var _reactRouter = __webpack_require__(180);
 
 	var _reactPlayer = __webpack_require__(240);
 
 	var _reactPlayer2 = _interopRequireDefault(_reactPlayer);
+
+	var _screenfull = __webpack_require__(253);
+
+	var _screenfull2 = _interopRequireDefault(_screenfull);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26839,23 +26845,102 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var ACTIVE = { color: 'red' };
-
 	var VideoPlayer = function (_React$Component) {
 	    _inherits(VideoPlayer, _React$Component);
 
-	    function VideoPlayer(props) {
+	    function VideoPlayer(props, context) {
 	        _classCallCheck(this, VideoPlayer);
 
-	        var _this = _possibleConstructorReturn(this, (VideoPlayer.__proto__ || Object.getPrototypeOf(VideoPlayer)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (VideoPlayer.__proto__ || Object.getPrototypeOf(VideoPlayer)).call(this, props, context));
 
+	        _this.router = context.router;
 	        _this.sourceURL = props.location.query.src;
+	        _this.state = {
+	            url: _this.sourceURL,
+	            playing: true,
+	            volume: 0.8,
+	            played: 0,
+	            loaded: 0,
+	            duration: 0,
+	            playbackRate: 1.0,
+	            width: 480,
+	            height: 270
+	        };
+	        _this.playPause = _this.playPause.bind(_this);
+	        _this.onClickFullScreen = _this.onClickFullScreen.bind(_this);
+	        _this.onSeekMouseDown = _this.onSeekMouseDown.bind(_this);
+	        _this.onSeekChange = _this.onSeekChange.bind(_this);
+	        _this.onSeekMouseUp = _this.onSeekMouseUp.bind(_this);
+	        _this.onProgress = _this.onProgress.bind(_this);
+	        _this.onBackOneSec = _this.onBackOneSec.bind(_this);
+	        _this.onClickBackToPlayList = _this.onClickBackToPlayList.bind(_this);
+
 	        return _this;
 	    }
 
 	    _createClass(VideoPlayer, [{
+	        key: 'playPause',
+	        value: function playPause() {
+	            this.setState({ playing: !this.state.playing });
+	        }
+	    }, {
+	        key: 'onBackOneSec',
+	        value: function onBackOneSec() {
+	            if (this.player) {
+	                this.player.seekTo(this0);
+	            }
+	            // this.player.seekTo(parseFloat(this.state.played))
+	            // this.setState({played: playued -1})
+	        }
+	    }, {
+	        key: 'onSeekMouseDown',
+	        value: function onSeekMouseDown(e) {
+	            this.setState({ seeking: true });
+	        }
+	    }, {
+	        key: 'onSeekChange',
+	        value: function onSeekChange(e) {
+	            this.setState({ played: parseFloat(e.target.value) });
+	        }
+	    }, {
+	        key: 'onSeekMouseUp',
+	        value: function onSeekMouseUp(e) {
+	            this.setState({ seeking: false });
+	            this.player.seekTo(parseFloat(e.target.value));
+	        }
+	    }, {
+	        key: 'onProgress',
+	        value: function onProgress(state) {
+	            if (!this.state.seeking) {
+	                this.setState(state);
+	            }
+	        }
+	    }, {
+	        key: 'onClickFullScreen',
+	        value: function onClickFullScreen() {
+	            _screenfull2.default.request((0, _reactDom.findDOMNode)(this.player));
+	        }
+	    }, {
+	        key: 'onClickBackToPlayList',
+	        value: function onClickBackToPlayList() {
+	            this.props.router.push('/');
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this2 = this;
+
+	            var _state = this.state,
+	                url = _state.url,
+	                playing = _state.playing,
+	                volume = _state.volume,
+	                played = _state.played,
+	                loaded = _state.loaded,
+	                duration = _state.duration,
+	                playbackRate = _state.playbackRate,
+	                width = _state.width,
+	                height = _state.height;
+
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -26867,18 +26952,115 @@
 	                _react2.default.createElement(
 	                    'p',
 	                    null,
-	                    this.sourceURL
-	                ),
-	                _react2.default.createElement(
-	                    'p',
-	                    null,
 	                    _react2.default.createElement(
 	                        _reactRouter.Link,
-	                        { to: '/', activeStyle: ACTIVE },
+	                        { to: '/' },
 	                        'Back'
 	                    )
 	                ),
-	                _react2.default.createElement(_reactPlayer2.default, { url: this.sourceURL, playing: true })
+	                _react2.default.createElement(_reactPlayer2.default, {
+	                    ref: function ref(player) {
+	                        _this2.player = player;
+	                    },
+	                    className: 'react-player',
+	                    width: width,
+	                    height: height,
+	                    url: url,
+	                    playing: playing,
+	                    playbackRate: playbackRate,
+	                    volume: volume,
+	                    onReady: function onReady() {
+	                        return console.log('onReady');
+	                    },
+	                    onStart: function onStart() {
+	                        return console.log('onStart');
+	                    },
+	                    onPlay: function onPlay() {
+	                        return _this2.setState({ playing: true });
+	                    },
+	                    onPause: function onPause() {
+	                        return _this2.setState({ playing: false });
+	                    },
+	                    onBuffer: function onBuffer() {
+	                        return console.log('onBuffer');
+	                    },
+	                    onEnded: function onEnded() {
+	                        return _this2.setState({ playing: false });
+	                    },
+	                    onError: function onError(e) {
+	                        return console.log('onError', e);
+	                    },
+	                    onProgress: this.onProgress,
+	                    onDuration: function onDuration(duration) {
+	                        return _this2.setState({ duration: duration });
+	                    }
+	                }),
+	                _react2.default.createElement(
+	                    'table',
+	                    null,
+	                    _react2.default.createElement(
+	                        'tbody',
+	                        null,
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Custom Controls'
+	                            ),
+	                            _react2.default.createElement(
+	                                'td',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { onClick: this.playPause },
+	                                    playing ? 'Pause' : 'Play'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { onClick: this.onBackOneSec },
+	                                    '-1sec'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { onClick: this.onFrwdOneSec },
+	                                    '+1sec'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { onClick: this.onClickFullScreen },
+	                                    'Fullscreen'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { onClick: this.onClickBackToPlayList },
+	                                    'Back to Play List'
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'tr',
+	                            null,
+	                            _react2.default.createElement(
+	                                'th',
+	                                null,
+	                                'Custom Seek'
+	                            ),
+	                            _react2.default.createElement(
+	                                'td',
+	                                null,
+	                                _react2.default.createElement('input', {
+	                                    type: 'range', min: 0, max: 1, step: 'any',
+	                                    value: played,
+	                                    onMouseDown: this.onSeekMouseDown,
+	                                    onChange: this.onSeekChange,
+	                                    onMouseUp: this.onSeekMouseUp
+	                                })
+	                            )
+	                        )
+	                    )
+	                )
 	            );
 	        }
 	    }]);
@@ -28722,6 +28904,157 @@
 
 /***/ },
 /* 253 */
+/***/ function(module, exports) {
+
+	/*!
+	* screenfull
+	* v3.0.0 - 2015-11-24
+	* (c) Sindre Sorhus; MIT License
+	*/
+	(function () {
+		'use strict';
+
+		var isCommonjs = typeof module !== 'undefined' && module.exports;
+		var keyboardAllowed = typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element;
+
+		var fn = (function () {
+			var val;
+			var valLength;
+
+			var fnMap = [
+				[
+					'requestFullscreen',
+					'exitFullscreen',
+					'fullscreenElement',
+					'fullscreenEnabled',
+					'fullscreenchange',
+					'fullscreenerror'
+				],
+				// new WebKit
+				[
+					'webkitRequestFullscreen',
+					'webkitExitFullscreen',
+					'webkitFullscreenElement',
+					'webkitFullscreenEnabled',
+					'webkitfullscreenchange',
+					'webkitfullscreenerror'
+
+				],
+				// old WebKit (Safari 5.1)
+				[
+					'webkitRequestFullScreen',
+					'webkitCancelFullScreen',
+					'webkitCurrentFullScreenElement',
+					'webkitCancelFullScreen',
+					'webkitfullscreenchange',
+					'webkitfullscreenerror'
+
+				],
+				[
+					'mozRequestFullScreen',
+					'mozCancelFullScreen',
+					'mozFullScreenElement',
+					'mozFullScreenEnabled',
+					'mozfullscreenchange',
+					'mozfullscreenerror'
+				],
+				[
+					'msRequestFullscreen',
+					'msExitFullscreen',
+					'msFullscreenElement',
+					'msFullscreenEnabled',
+					'MSFullscreenChange',
+					'MSFullscreenError'
+				]
+			];
+
+			var i = 0;
+			var l = fnMap.length;
+			var ret = {};
+
+			for (; i < l; i++) {
+				val = fnMap[i];
+				if (val && val[1] in document) {
+					for (i = 0, valLength = val.length; i < valLength; i++) {
+						ret[fnMap[0][i]] = val[i];
+					}
+					return ret;
+				}
+			}
+
+			return false;
+		})();
+
+		var screenfull = {
+			request: function (elem) {
+				var request = fn.requestFullscreen;
+
+				elem = elem || document.documentElement;
+
+				// Work around Safari 5.1 bug: reports support for
+				// keyboard in fullscreen even though it doesn't.
+				// Browser sniffing, since the alternative with
+				// setTimeout is even worse.
+				if (/5\.1[\.\d]* Safari/.test(navigator.userAgent)) {
+					elem[request]();
+				} else {
+					elem[request](keyboardAllowed && Element.ALLOW_KEYBOARD_INPUT);
+				}
+			},
+			exit: function () {
+				document[fn.exitFullscreen]();
+			},
+			toggle: function (elem) {
+				if (this.isFullscreen) {
+					this.exit();
+				} else {
+					this.request(elem);
+				}
+			},
+			raw: fn
+		};
+
+		if (!fn) {
+			if (isCommonjs) {
+				module.exports = false;
+			} else {
+				window.screenfull = false;
+			}
+
+			return;
+		}
+
+		Object.defineProperties(screenfull, {
+			isFullscreen: {
+				get: function () {
+					return Boolean(document[fn.fullscreenElement]);
+				}
+			},
+			element: {
+				enumerable: true,
+				get: function () {
+					return document[fn.fullscreenElement];
+				}
+			},
+			enabled: {
+				enumerable: true,
+				get: function () {
+					// Coerce to boolean in case of old WebKit
+					return Boolean(document[fn.fullscreenEnabled]);
+				}
+			}
+		});
+
+		if (isCommonjs) {
+			module.exports = screenfull;
+		} else {
+			window.screenfull = screenfull;
+		}
+	})();
+
+
+/***/ },
+/* 254 */
 /***/ function(module, exports) {
 
 	var appCacheIframe;
