@@ -45,6 +45,7 @@ class VideoPlayer extends React.Component {
         let duration = this.state.duration;
         let backOneSec = ((played * duration) - 1) / duration
         this.setState({played : backOneSec ? backOneSec : played })
+        this.player.seekTo(backOneSec ? backOneSec : played)
 
     }
 
@@ -53,6 +54,7 @@ class VideoPlayer extends React.Component {
         let duration = this.state.duration;
         let fwdOneSec = ((played * duration) + 1) / duration
         this.setState({played : fwdOneSec ? fwdOneSec : played })
+        this.player.seekTo(fwdOneSec ? fwdOneSec : played)
     }
 
     onSeekMouseDown(e){
