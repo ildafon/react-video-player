@@ -95,7 +95,7 @@ class VideoPlayer extends React.Component {
         return (
             <div>
                 <h3>Video Player</h3>
-                <p><Link to="/" >Back</Link></p>
+                {/*<p><Link to="/" >Back</Link></p>*/}
                 <ReactPlayer
                     ref = {player => {this.player = player}}
                     className="react-player"
