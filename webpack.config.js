@@ -1,9 +1,12 @@
+var webpack = require('webpack');
 var path = require('path');
 var OfflinePlugin = require('offline-plugin');
 
 
 var config = {
     context: path.join(__dirname, 'src'),
+
+    devtool: 'source-map',
 
     entry: [
       './index.js',
@@ -32,7 +35,9 @@ var config = {
        ],
     },
     plugins: [
-      new OfflinePlugin()
+      new OfflinePlugin(),
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NoErrorsPlugin()
     ],
 };
 
