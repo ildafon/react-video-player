@@ -8,11 +8,11 @@ var __wpo = {
   },
   "externals": [],
   "hashesMap": {
-    "041b457203808a6edc5fc6883e4b63fb4abddcd5": "./app.js"
+    "a66627db533354af9cc9d033d8798557cc892372": "./app.js"
   },
   "strategy": "changed",
   "responseStrategy": "cache-first",
-  "version": "1/18/2017, 10:07:14 PM",
+  "version": "1/18/2017, 10:54:10 PM",
   "name": "webpack-offline",
   "pluginVersion": "4.5.5",
   "relativePaths": true
@@ -31,7 +31,7 @@ var __wpo = {
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "ccdfa133070e1b7d40e7"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "61813b4ff93c9bcfaef8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -622,7 +622,7 @@ var __wpo = {
 	      return Promise.resolve();
 	    }
 
-	    if (false) {
+	    if (true) {
 	      console.log('[SW]:', 'Caching additional');
 	    }
 
@@ -866,7 +866,7 @@ var __wpo = {
 	  function cacheFirstResponse(event, urlString, cacheUrl) {
 	    return cachesMatch(cacheUrl, CACHE_NAME).then(function (response) {
 	      if (response) {
-	        if (false) {
+	        if (true) {
 	          console.log('[SW]:', 'URL [' + cacheUrl + '](' + urlString + ') from cache');
 	        }
 
@@ -876,14 +876,14 @@ var __wpo = {
 	      // Load and cache known assets
 	      var fetching = fetch(event.request).then(function (response) {
 	        if (!response.ok) {
-	          if (false) {
+	          if (true) {
 	            console.log('[SW]:', 'URL [' + urlString + '] wrong response: [' + response.status + '] ' + response.type);
 	          }
 
 	          return response;
 	        }
 
-	        if (false) {
+	        if (true) {
 	          console.log('[SW]:', 'URL [' + urlString + '] from network');
 	        }
 
@@ -909,7 +909,7 @@ var __wpo = {
 	  function networkFirstResponse(event, urlString, cacheUrl) {
 	    return fetch(event.request).then(function (response) {
 	      if (response.ok) {
-	        if (false) {
+	        if (true) {
 	          console.log('[SW]:', 'URL [' + urlString + '] from network');
 	        }
 
@@ -922,7 +922,7 @@ var __wpo = {
 	    // this needs to be in a catch() and not just in the then() above
 	    // cause if your network is down, the fetch() will throw
 	    ['catch'](function () {
-	      if (false) {
+	      if (true) {
 	        console.log('[SW]:', 'URL [' + urlString + '] from cache if possible');
 	      }
 
@@ -933,7 +933,7 @@ var __wpo = {
 	  function handleNavigateFallback(fetching) {
 	    return fetching['catch'](function () {}).then(function (response) {
 	      if (!response || !response.ok) {
-	        if (false) {
+	        if (true) {
 	          console.log('[SW]:', 'Loading navigation fallback [' + navigateFallbackURL + '] from cache');
 	        }
 

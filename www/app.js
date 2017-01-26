@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e81a346e18e7cbd66d12"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "00767adb33088c6689ff"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -27293,7 +27293,7 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var localPlayList = [{ id: 0, name: 'Jellyfish 3', src: 'http://jell.yfish.us/media/jellyfish-3-mbps-hd-h264.mkv' }, { id: 1, name: 'Jellyfish 5', src: 'http://jell.yfish.us/media/jellyfish-5-mbps-hd-h264.mkv' }, { id: 2, name: 'Jellyfish 10', src: 'http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv' }];
+	var localPlayList = [{ id: 0, name: 'Big_buck bunny', src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4' }, { id: 1, name: 'Jellyfish 3', src: 'http://jell.yfish.us/media/jellyfish-3-mbps-hd-h264.mkv' }, { id: 2, name: 'Jellyfish 5', src: 'http://jell.yfish.us/media/jellyfish-5-mbps-hd-h264.mkv' }, { id: 3, name: 'Jellyfish 10', src: 'http://jell.yfish.us/media/jellyfish-10-mbps-hd-h264.mkv' }];
 	
 	var PlayList = function (_React$Component) {
 	    _inherits(PlayList, _React$Component);

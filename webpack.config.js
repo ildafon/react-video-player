@@ -4,12 +4,13 @@ var OfflinePlugin = require('offline-plugin');
 
 
 var config = {
-    context: path.join(__dirname, 'src'),
+    debug : true,
 
-    devtool: 'source-map',
+
+
 
     entry: [
-      './index.js',
+      './src/index.js',
     ],
     output: {
       path: path.join(__dirname, 'www'),
@@ -21,6 +22,14 @@ var config = {
               test: /\.js$/,
               exclude: /node_modules/,
                 loaders: ['babel'],
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
+            {
+                test: /\.(svg|woff|ttf|eot|png|jpg|gif)(\?.*)?$/i,
+                loader: 'url-loader?limit=10000'
             },
         ],
     },
@@ -36,7 +45,6 @@ var config = {
     },
     plugins: [
       new OfflinePlugin(),
-      new webpack.HotModuleReplacementPlugin(),
       new webpack.NoErrorsPlugin()
     ],
 };
