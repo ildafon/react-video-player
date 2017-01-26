@@ -25,7 +25,7 @@ class PlayList extends React.Component {
                     {localPlayList.map(video => (
                         <li key={video.id}><Link
                          to={{
-                             pathname: `/video`,
+                             pathname: `/video2`,
                              query: { src: video.src}
                          }}
                         >
